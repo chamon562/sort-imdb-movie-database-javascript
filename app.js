@@ -56,15 +56,41 @@ const movies = [
     id: "tt0050083",
   },
 ];
+
+// when the user clicks on the button, toggle between hiding and show the dropDown content
+function toggleDropDown() {
+  document.getElementById("myDropDown").classList.toggle("show");
+}
+
 // when the ai compares letters its looks at z being the greatest value like on a number from 0 ----> 26
 // z is greater than a because it furthest from left to right
+
+let sortByRank = document.getElementById("sort-rank");
+sortByRank.addEventListener("click", () => {
+    let sortedMoviesRank = sortMoviesByAttr(movies, "rank");
+    displayMovies(sortedMoviesRank)
+});
+
+let sortByTitle = document.getElementById("sort-title");
+sortByTitle.addEventListener("click", () =>{
+    let sortedMoviesTitle = sortMoviesByAttr(movies, "title");
+    displayMovies(sortedMoviesTitle);
+});
+
+let sortById = document.getElementById("sort-id");
+sortById.addEventListener("click", () =>{
+    let sortedMoviesId = sortMoviesByAttr(movies, "id");
+    displayMovies(sortedMoviesId);
+})
+// addEventListener("click", sortMoviesByAttr(movies, "rank"));
 window.onload = function () {
+
   //   let sortedMovies = sortMoviesByRank(movies);
   // if want to sort movies by attribute by title put in "title" or put in "rank"
-  let sortedMovies = sortMoviesByAttr(movies, "rank");
+  //   let sortedMovies = sortMoviesByAttr(movies, "rank");
   //  Display Movies list
   //   displayMovies(movies);
-  displayMovies(sortedMovies);
+  displayMovies(movies);
 };
 
 /*
