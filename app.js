@@ -1,7 +1,7 @@
 /**
  * TODO: DONE** Change sortMoviesByRank() function to sort movies list by rank
- * TODO: Sort movies by id, rank, and title through dynamic function, a flexible function that can do many different things
- * TODO: Create helper function called getMaxMovieObject() for finding max movie
+ * TODO: DONE** Sort movies by id, rank, and title through dynamic function, a flexible function that can do many different things
+ * TODO: DONE** Create helper function called getMaxMovieObject() for finding max movie
  */
 
 const movies = [
@@ -56,7 +56,8 @@ const movies = [
     id: "tt0050083",
   },
 ];
-
+// when the ai compares letters its looks at z being the greatest value like on a number from 0 ----> 26
+// z is greater than a because it furthest from left to right
 window.onload = function () {
   //   let sortedMovies = sortMoviesByRank(movies);
   // if want to sort movies by attribute by title put in "title" or put in "rank"
@@ -142,19 +143,23 @@ function sortMoviesByAttr(movies, sortAttr) {
     // max_location at i is still zero index zero
     let max_location = i;
     console.log(max_object);
-    for (let j = i; j < movies.length; j++) {
-      // so lets say movies[j] is equal to i and i in the outer loop starts at 0 so i is currently zero
-      // it makes sense to compare .rank than comparing the entire object
-      //  if using movies[j][sortAttr] then whats going on is its using sortAttribute as a variable as a string to look for in its object
-      // for example if sortAttr is "title" its going to say give me movies at a certain index with the setAttr set attribute title
-      if (movies[j][sortAttr] > max_object[sortAttr]) {
-        //   Know max And its index (location)
-        // if we found object with higher rank, then replace max_object with the new object
-        max_object = movies[j];
-        // replacing the index of max location
-        max_location = j;
-      }
-    }
+    let max = getMaxMovieObject(movies, i, sortAttr);
+    max_object = max.max_object;
+    // this is referenced from the object in the return of getMaxMovieObject
+    max_location = max.max_index;
+    // for (let j = i; j < movies.length; j++) {
+    //   // so lets say movies[j] is equal to i and i in the outer loop starts at 0 so i is currently zero
+    //   // it makes sense to compare .rank than comparing the entire object
+    //   //  if using movies[j][sortAttr] then whats going on is its using sortAttribute as a variable as a string to look for in its object
+    //   // for example if sortAttr is "title" its going to say give me movies at a certain index with the setAttr set attribute title
+    //   if (movies[j][sortAttr] > max_object[sortAttr]) {
+    //     //   Know max And its index (location)
+    //     // if we found object with higher rank, then replace max_object with the new object
+    //     max_object = movies[j];
+    //     // replacing the index of max location
+    //     max_location = j;
+    //   }
+    // }
     movies[max_location] = movies[i];
     movies[i] = max_object;
   }
@@ -166,4 +171,16 @@ function sortMoviesByAttr(movies, sortAttr) {
     Hint: make sure you are comparing the right attribute
 */
 
-function getMaxMovieObject(moves, start, sortAttr) {}
+function getMaxMovieObject(movies, start, sortAttr) {
+  // the sortAttr is the attribute want to check like did in if(movies[i][sortAttr]> max_object[sortAttr])
+  // changing the variable maxium to max_object to be relevant with the situation
+  let max_object = movies[start];
+  let max_location = start;
+  for (let j = start; j < movies.length; j++) {
+    if (movies[j][sortAttr] > max_object[sortAttr]) {
+      max_object = movies[j];
+      max_location = j;
+    }
+  }
+  return { max_object: max_object, max_index: max_location };
+}
